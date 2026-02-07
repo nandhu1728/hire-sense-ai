@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hire Sense AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container fade-in">
+    <h1>Hire Sense AI</h1>
+    <p class="subtitle">Smart Resume Insights. Smarter Interviews.</p>
+
+    <form action="/upload" method="post" enctype="multipart/form-data" class="card">
+        <label>📄 Upload Resumes (Max 3)</label>
+        <input type="file" name="resume" multiple required>
+
+        <label>🧾 Job Description</label>
+        <textarea name="jd" rows="6" placeholder="Paste job description here..." required></textarea>
+
+        <button type="submit">Analyze Resumes 🚀</button>
+    </form>
+</div>
+
+</body>
+</html>

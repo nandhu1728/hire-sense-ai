@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results | Hire Sense AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>📊 Screening Results</h1>
+
+    {% for r in results %}
+    <div class="result-card slide-up">
+        <h3>{{ r.name }}</h3>
+
+        <div class="progress-box">
+            <div class="progress-bar" style="width: {{ r.percentage }}%;"></div>
+        </div>
+
+        <p class="percentage">{{ r.percentage }}% Match</p>
+
+        <p class="
+            status
+            {% if 'Shortlisted' in r.decision %}green
+            {% elif 'Needs' in r.decision %}orange
+            {% else %}red{% endif %}
+        ">
+            {{ r.decision }}
+        </p>
+
+        <div class="skills">
+            {% for m in r.matched %}
+                <span class="skill-badge">✔ {{ m }}</span>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>
