@@ -8,32 +8,59 @@
 <body>
 
 <div class="container">
-    <h1>📊 Screening Results</h1>
+    <h1>📊 Resume Screening Results</h1>
 
     {% for r in results %}
     <div class="result-card slide-up">
-        <h3>{{ r.name }}</h3>
 
+        <h3>📄 {{ r.name }}</h3>
+
+        <!-- Progress Bar -->
         <div class="progress-box">
             <div class="progress-bar" style="width: {{ r.percentage }}%;"></div>
         </div>
 
-        <p class="percentage">{{ r.percentage }}% Match</p>
+        <p class="percentage">{{ r.percentage }}% Skill Match</p>
 
-        <p class="
-            status
+        <!-- Status -->
+        <p class="status
             {% if 'Shortlisted' in r.decision %}green
-            {% elif 'Needs' in r.decision %}orange
+            {% elif 'Potential' in r.decision %}orange
             {% else %}red{% endif %}
         ">
             {{ r.decision }}
         </p>
 
+        <!-- Matched Skills -->
         <div class="skills">
-            {% for m in r.matched %}
-                <span class="skill-badge">✔ {{ m }}</span>
+            <p><b>✅ Matched Skills:</b></p>
+            {% if r.matched %}
+                {% for m in r.matched %}
+                    <span class="skill-badge">✔ {{ m }}</span>
+                {% endfor %}
+            {% else %}
+                <p>No matching skills found.</p>
+            {% endif %}
+        </div>
+
+        <!-- Interview Questions (UNIQUE FEATURE 🔥) -->
+        {% if r.questions %}
+        <div class="interview-section">
+            <h4>🎤 Recommended Interview Questions</h4>
+
+            {% for skill, qs in r.questions.items() %}
+                <div class="question-block">
+                    <p><b>{{ skill | upper }}</b></p>
+                    <ul>
+                        {% for q in qs %}
+                            <li>❓ {{ q }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
             {% endfor %}
         </div>
+        {% endif %}
+
     </div>
     {% endfor %}
 </div>
